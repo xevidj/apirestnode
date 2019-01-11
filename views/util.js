@@ -23,3 +23,21 @@ function setCookie(cname, cvalue, exdays) {
   function goBack() {
     window.history.back();
   }
+
+  function checkSession(tipo) {
+    try{
+      if (getCookie("tipo") != tipo) {
+  
+        var re = /^https?:\/\/[^/]+/i;
+        window.location.href = re.exec(window.location.href)[0];
+    
+      }
+    }
+    catch(err){
+      var re = /^https?:\/\/[^/]+/i;
+      window.location.href = re.exec(window.location.href)[0];
+    }
+    
+    
+  
+  }
