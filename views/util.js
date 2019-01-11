@@ -29,13 +29,31 @@ function setCookie(cname, cvalue, exdays) {
       if (getCookie("tipo") != tipo) {
   
         var re = /^https?:\/\/[^/]+/i;
-        window.location.href = re.exec(window.location.href)[0]+"login";
+        window.location.href = re.exec(window.location.href)[0]+"/login";
        // window.location.href =window.location.href +"login";
       }
     }
     catch(err){
       var re = /^https?:\/\/[^/]+/i;
-      window.location.href = re.exec(window.location.href)[0];
+      window.location.href = re.exec(window.location.href)[0]+"/login";
+    }
+    
+    
+  
+  }
+
+  function checkSessionActive(tipo) {
+    try{
+      if (getCookie("tipo") == "") {
+  
+        var re = /^https?:\/\/[^/]+/i;
+        window.location.href = re.exec(window.location.href)[0]+"/login";
+       // window.location.href =window.location.href +"login";
+      }
+    }
+    catch(err){
+      var re = /^https?:\/\/[^/]+/i;
+      window.location.href = re.exec(window.location.href)[0]+"/login";
     }
     
     
