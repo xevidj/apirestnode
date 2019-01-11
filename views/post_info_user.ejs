@@ -62,18 +62,7 @@
 
         </div>
     
-    <!--crear Comentarios-->
-    <section id="crearComentario">
-        <h1>Agregar Comentario</h1>
-        <hr>
-        <div id="crearComentariodiv" class="container">
 
-            <textarea rows="10" cols="50" v-model="comentario" placeholder="comentario">
-                            </textarea>
-            <button v-on:click="createComentario">CREAR</button>
-        </div>
-
-    </section>
     <br><br><br>
 
 
@@ -118,50 +107,7 @@
                 })
         }
     });
-    //vue crear comentario vue js
-    var vuecreacomentario = new Vue({
-        el: '#crearComentariodiv',
-        data: {
-            useridComentario: '',
-            contenidoidComentario: '',
-            comentario: ''
-        },
-        // define methods under the `methods` object
-        methods: {
-            createComentario: function (event) {
-                $.ajax({
-                    method: "post",
-                    type: "POST",
-                    url: "http://" + mainUrl + "/comentario/create",
-                    headers: {
-                        "Content-Type": "application/json"
 
-                    },
-                    data: JSON.stringify({
-                        userid: getCookie("userid"),
-                        contenidoid: postidinf,
-                        comentario: this.comentario
-                    }),
-                    contentType: 'application/json',
-                    processData: false,
-
-                }).then(function (response) {
-                    console.log(response);
-                    if (response.msg == "success") {
-                        alert("operacion exitosa");
-                        location.reload();
-                    }
-                    else {
-                        alert("error:" + JSON.stringify(response));
-                    }
-
-
-                }).catch(function (error) {
-                    alert("error:" + JSON.stringify(error));
-                });
-            }
-        }
-    });
 
 
 </script>
