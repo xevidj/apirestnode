@@ -40,23 +40,24 @@
 
                 </div>
             </div>
-            <h3>Comentarios</h3>
-            <hr>
-
-            <div id="comentarioListDiv" class="row">
-
-                <div v-for="comentario in comentarioList" class="collection">
 
 
-                    <a href="#!" class="collection-item"><span class="new badge">Creado:&nbsp;{{comentario.fechaCreacion}}</span>{{comentario.comentario
-                        }}</a>
+        </div>
+        <h3>Comentarios</h3>
+        <hr>
+
+        <div id="comentarioListDiv" class="row">
+
+            <div v-for="comentario in comentarioList" class="collection">
 
 
+                <a href="#!" class="collection-item"><span class="new badge">Creado:&nbsp;{{comentario.fechaCreacion}}</span>{{comentario.comentario
+                    }}</a>
 
-                </div>
 
 
             </div>
+
 
         </div>
     </section>
