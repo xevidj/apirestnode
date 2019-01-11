@@ -15,47 +15,48 @@
 
 <body>
 
-  <!--listar post-->
-  <section id="listaPost">
-    <h1>Lista de Posts</h1>
-    <hr>
-    <div id="listDiv" class="row">
+    <!--listar post-->
+    <section id="listaPost">
+        <h1>Lista de Posts</h1>
+        <hr>
+        <div id="listDiv" class="row">
 
-        <div v-for="post in postsList" class="col s4">
+            <div v-for="post in postsList" class="col s4">
 
 
-            <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRhv2_AJmH-7OPFYhiqCxprncJZbGF5uzAR_PRGbfFAKpB4SKgsw">
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">{{ post.titulo }}<i class="material-icons right">Leer
-                            mas</i></span>
-                    <p>Creado:&nbsp;{{ post.fechaCreacion }}</p>
-                    <p>(id: {{ post._id}})</p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">{{ post.titulo }}<i class="material-icons right">close</i></span>
-                    <p>
-                        <div v-html="post.contenido"></div>
-                    </p>
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRhv2_AJmH-7OPFYhiqCxprncJZbGF5uzAR_PRGbfFAKpB4SKgsw">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">{{ post.titulo }}<i class="material-icons right">Leer
+                                mas</i></span>
+                        <p>Creado:&nbsp;{{ post.fechaCreacion }}</p>
+                        <p>(id: {{ post._id}})</p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">{{ post.titulo }}<i class="material-icons right">close</i></span>
+                        <p>
+                            <div v-html="post.contenido"></div>
+                        </p>
+                        <a :href="'post_info_user/' + post._id">Leer</a>
 
+                    </div>
                 </div>
             </div>
-        </div>
 
-    </div>
-</section>
-       <br><br><br>
+        </div>
+    </section>
+    <br><br><br>
 
 
 </body>
 
 <script>
-  mainUrl= "104.248.237.254:8082";
+    mainUrl = "104.248.237.254:8082";
     Vue.http.options.emulateJSON = true;
-       //listar post vuejs
-       var vm1 = new Vue({
+    //listar post vuejs
+    var vm1 = new Vue({
         el: '#listDiv',
         data: {
             postsList: {}
@@ -63,7 +64,7 @@
         created() {
             this
                 .$http
-                .get("http://"+mainUrl+"/posts/getAll")
+                .get("http://" + mainUrl + "/posts/getAll")
                 .then(function (response) {
                     console.log("response get all posts");
                     console.log(response)
@@ -73,7 +74,7 @@
         }
     });
 
-  
+
 
 </script>
 
