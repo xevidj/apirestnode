@@ -14,47 +14,75 @@
 
 <body>
 
-  <!--listar post-->
-  <section id="listaPost">
-    <h1>Lista de Posts</h1>
-    <hr>
-    <div id="listDiv" class="row">
+    <script>
+        var postidinf = "<%= idpost %>";
+        console.log("post id info:");
+        console.log(postidinf);
+    </script>
 
-        <div v-for="post in postsList" class="col s4">
+    <!--listar post-->
+    <section id="listaPost">
+        <h1>Informacion del Post</h1>
+        <hr>
+        <div id="listDiv" class="row">
+
+            <div v-for="post in postsList">
 
 
-            <div class="card">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRhv2_AJmH-7OPFYhiqCxprncJZbGF5uzAR_PRGbfFAKpB4SKgsw">
-                </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">{{ post.titulo }}<i class="material-icons right">Leer
-                            mas</i></span>
+                <div class="container">
+                    <h1>{{ post.titulo }}</h1>
                     <p>Creado:&nbsp;{{ post.fechaCreacion }}</p>
-                    <p>(id: {{ post._id}})</p>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">{{ post.titulo }}<i class="material-icons right">close</i></span>
+                    <hr>
+                    <br><br>
                     <p>
                         <div v-html="post.contenido"></div>
                     </p>
 
                 </div>
             </div>
+
+
         </div>
 
-    </div>
-</section>
-       <br><br><br>
+
+        <div id="comentarioListDiv" class="row">
+            <h3>Comentarios</h3>
+            <hr>
+            <div v-for="comentario in comentarioList" class="collection">
+
+
+                <p class="collection-item"><span class=" badge">Creado:&nbsp;{{comentario.fechaCreacion}}</span>{{comentario.comentario
+                    }}</p>
+
+
+
+            </div>
+
+
+        </div>
+    </section>
+    <!--crear Comentarios-->
+    <section id="crearComentario">
+        <h1>Agregar Comentario</h1>
+        <hr>
+        <div id="crearComentariodiv" class="container">
+            
+            <textarea rows="10" cols="50" v-model="comentario" placeholder="comentario">
+                            </textarea>
+            <button v-on:click="createComentario">CREAR</button>
+        </div>
+
+    </section>
+    <br><br><br>
 
 
 </body>
 
 <script>
-  mainUrl= "104.248.237.254:8082";
+    mainUrl = "104.248.237.254:8082";
     Vue.http.options.emulateJSON = true;
-       //listar post vuejs
-       var vm1 = new Vue({
+    //listar post vuejs
+    var vm1 = new Vue({
         el: '#listDiv',
         data: {
             postsList: {}
@@ -62,7 +90,7 @@
         created() {
             this
                 .$http
-                .get("http://"+mainUrl+"/posts/getAll")
+                .get("http://" + mainUrl + "/posts/getById/" + postidinf)
                 .then(function (response) {
                     console.log("response get all posts");
                     console.log(response)
@@ -71,8 +99,69 @@
                 })
         }
     });
+    //listar comentarios del post vuejs
+    var vm2 = new Vue({
+        el: '#comentarioListDiv',
+        data: {
+            comentarioList: {}
+        },
+        created() {
+            this
+                .$http
+                .get("http://" + mainUrl + "/comentario/getByPost/" + postidinf)
+                .then(function (response) {
+                    console.log("response get all comentarios");
+                    console.log(response)
+                    this.comentarioList = response.data
+                    console.log(this.comentarioList)
+                })
+        }
+    });
+    //vue crear comentario vue js
+    var vuecreacomentario = new Vue({
+        el: '#crearComentariodiv',
+        data: {
+            useridComentario: '',
+            contenidoidComentario: '',
+            comentario: ''
+        },
+        // define methods under the `methods` object
+        methods: {
+            createComentario: function (event) {
+                $.ajax({
+                    method: "post",
+                    type: "POST",
+                    url: "http://" + mainUrl + "/comentario/create",
+                    headers: {
+                        "Content-Type": "application/json"
 
-  
+                    },
+                    data: JSON.stringify({
+                        userid:  getCookie("userid"),
+                        contenidoid: postidinf,
+                        comentario: this.comentario
+                    }),
+                    contentType: 'application/json',
+                    processData: false,
+
+                }).then(function (response) {
+                    console.log(response);
+                    if (response.msg == "success") {
+                        alert("operacion exitosa");
+                        location.reload();
+                    }
+                    else {
+                        alert("error:" + JSON.stringify(response));
+                    }
+
+
+                }).catch(function (error) {
+                    alert("error:" + JSON.stringify(error));
+                });
+            }
+        }
+    });
+
 
 </script>
 

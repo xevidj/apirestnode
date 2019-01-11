@@ -26,10 +26,10 @@
         <hr>
         <div id="listDiv" class="row">
 
-            <div v-for="post in postsList" class="col s4">
+            <div v-for="post in postsList">
 
 
-                <div class="Container">
+                <div class="container">
                     <h1>{{ post.titulo }}</h1>
                     <p>Creado:&nbsp;{{ post.fechaCreacion }}</p>
                     <hr>
@@ -43,16 +43,16 @@
 
 
         </div>
-        <h3>Comentarios</h3>
-        <hr>
+
 
         <div id="comentarioListDiv" class="row">
-
+            <h3>Comentarios</h3>
+            <hr>
             <div v-for="comentario in comentarioList" class="collection">
 
 
-                <a href="#!" class="collection-item"><span class="new badge">Creado:&nbsp;{{comentario.fechaCreacion}}</span>{{comentario.comentario
-                    }}</a>
+                <p class="collection-item"><span class=" badge">Creado:&nbsp;{{comentario.fechaCreacion}}</span>{{comentario.comentario
+                    }}</p>
 
 
 
