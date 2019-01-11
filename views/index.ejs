@@ -1,6 +1,6 @@
 <script>
     try {
-        if (getCookie("tipo") != "ADNIN" && getCookie("tipo") != "INVITADO") {
+        if (getCookie("tipo") != "ADMIN" && getCookie("tipo") != "INVITADO") {
 
             var re = /^https?:\/\/[^/]+/i;
             window.location.href = re.exec(window.location.href)[0] + "/login";
