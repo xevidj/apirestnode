@@ -48,8 +48,8 @@
                 <div v-for="comentario in comentarioList" class="collection">
 
 
-                    <a href="#!" class="collection-item"><span class="new badge">Creado:&nbsp;{{ comentario.fechaCreacion }}</span>{{
-                        comentario.comentario }}</a>
+                    <a href="#!" class="collection-item"><span class="new badge">Creado:&nbsp;{{comentario.fechaCreacion}}</span>{{comentario.comentario
+                        }}</a>
 
 
 
@@ -97,7 +97,7 @@
                 .$http
                 .get("http://" + mainUrl + "/comentario/getByPost/" + postidinf)
                 .then(function (response) {
-                    console.log("response get all posts");
+                    console.log("response get all comentarios");
                     console.log(response)
                     this.comentarioList = response.data
                     console.log(this.comentarioList)
