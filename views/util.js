@@ -19,3 +19,7 @@ function setCookie(cname, cvalue, exdays) {
     }
     return "";
   }
+
+  function goBack() {
+    window.history.back();
+  }
