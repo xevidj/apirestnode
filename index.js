@@ -299,13 +299,13 @@ app.get('/comentario/getById/:id', (req, res) => {
   }).catch(err => res.status(404).json({ code: 404, msg: e }));
 
 });
-app.get('/comentario/getByPost', (req, res) => {
+app.get('/comentario/getByPost/:id', (req, res) => {
   // Enable cors
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
   res.setHeader('Access-Control-Allow-Credentials', true); // If needed
-  Comentario.find({ contenidoid: req.body.contenidoid }).then(function (posts) {
+  Comentario.find({ contenidoid: req.params.contenidoid }).then(function (posts) {
     res.send(posts);
   }).catch(err => res.status(404).json({ code: 404, msg: e }));
 
