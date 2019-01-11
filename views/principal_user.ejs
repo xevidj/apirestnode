@@ -1,0 +1,79 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/vue.resource/1.2.0/vue-resource.min.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+
+<body>
+
+  <!--listar post-->
+  <section id="listaPost">
+    <h1>Lista de Posts</h1>
+    <hr>
+    <div id="listDiv" class="row">
+
+        <div v-for="post in postsList" class="col s4">
+
+
+            <div class="card">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRhv2_AJmH-7OPFYhiqCxprncJZbGF5uzAR_PRGbfFAKpB4SKgsw">
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">{{ post.titulo }}<i class="material-icons right">Leer
+                            mas</i></span>
+                    <p>Creado:&nbsp;{{ post.fechaCreacion }}</p>
+                    <p>(id: {{ post._id}})</p>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">{{ post.titulo }}<i class="material-icons right">close</i></span>
+                    <p>
+                        <div v-html="post.contenido"></div>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+       <br><br><br>
+
+
+</body>
+
+<script>
+  mainUrl= "104.248.237.254:8082";
+    Vue.http.options.emulateJSON = true;
+       //listar post vuejs
+       var vm1 = new Vue({
+        el: '#listDiv',
+        data: {
+            postsList: {}
+        },
+        created() {
+            this
+                .$http
+                .get("http://"+mainUrl+"/posts/getAll")
+                .then(function (response) {
+                    console.log("response get all posts");
+                    console.log(response)
+                    this.postsList = response.data
+                    console.log(this.postsList)
+                })
+        }
+    });
+
+  
+
+</script>
+
+</html>

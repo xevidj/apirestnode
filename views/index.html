@@ -1,0 +1,346 @@
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/vue.resource/1.2.0/vue-resource.min.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</head>
+
+<body>
+
+    <!--<div id="myDiv">
+        <div v-if="response._id">
+            <h2>{{ response.titulo }} &nbsp;Creado:{{ response.fechaCreacion }}</h2>
+            <div>
+                <div v-html="response.contenido">
+                </div>
+            </div>
+        </div>
+        <div v-if="response.error">
+            <p>Request failed</p>
+        </div>
+    </div>-->
+    <!--LOGIN-->
+    <section id="loginSection">
+        <h1>Login</h1>
+        <hr>
+        <div id="logindiv" class="container">
+            <input v-model="username1" placeholder="username">
+            <input v-model="password1" placeholder="password">
+            <!-- `greet` is the name of a method defined below -->
+            <button v-on:click="greet">LOGIN</button>
+        </div>
+
+    </section>
+    <!--listar uduarios-->
+    <section id="listaUsuarios">
+        <h1>Lista de Usuarios</h1>
+        <hr>
+        <div id="userDiv" class="row">
+            <table>
+                <tr>
+                    <th>id</th>
+                    <th>username</th>
+                    <th>nombre</th>
+                    <th>tipo de usuario</th>
+                </tr>
+
+                <tr v-for="user in userList">
+                    <td>{{ user._id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.tipo }}</td>
+
+                </tr>
+            </table>
+
+        </div>
+    </section>
+    <!--listar post-->
+    <section id="listaPost">
+        <h1>Lista de Posts</h1>
+        <hr>
+        <div id="listDiv" class="row">
+
+            <div v-for="post in postsList" class="col s4">
+
+
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="images/default.jpeg">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">{{ post.titulo }}<i class="material-icons right">Leer
+                                mas</i></span>
+                        <p>Creado:&nbsp;{{ post.fechaCreacion }}</p>
+                        <p>(id: {{ post._id}})</p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">{{ post.titulo }}<i class="material-icons right">close</i></span>
+                        <p>
+                            <div v-html="post.contenido"></div>
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!--crear Posts-->
+    <section id="crearPost">
+        <h1>Crear Posts</h1>
+        <hr>
+        <div id="crearPostdiv" class="container">
+            <input v-model="userid" placeholder="userid">
+            <input v-model="titulo" placeholder="titulo">
+            <textarea rows="4" cols="50" v-model="contenido" placeholder="contenido">
+                </textarea>
+            <button v-on:click="createPost">CREAR</button>
+        </div>
+
+    </section>
+    <!--crear Comentarios-->
+    <section id="crearComentario">
+        <h1>Crear Comentario</h1>
+        <hr>
+        <div id="crearComentariodiv" class="container">
+            <input v-model="useridComentario" placeholder="useridComentario">
+            <input v-model="contenidoidComentario" placeholder="contenidoidComentario">
+            <textarea rows="10" cols="50" v-model="comentario" placeholder="comentario">
+                    </textarea>
+            <button v-on:click="createComentario">CREAR</button>
+        </div>
+
+    </section>
+    <!--listar comentarios-->
+    <section id="listaComnetarios">
+        <h1>Lista de Comentarios</h1>
+        <hr>
+        <div id="listaComentariosDiv" class="row">
+            <table>
+                <tr>
+                    <th>userid</th>
+                    <th>contenidoid</th>
+                    <th>comentario</th>
+                </tr>
+
+                <tr v-for="com in comentarioList">
+                    <td>{{ com._id }}</td>
+                    <td>{{ com.contenidoid }}</td>
+                    <td>{{ com.comentario }}</td>
+                </tr>
+            </table>
+
+        </div>
+    </section>
+    <br><br><br>
+
+
+</body>
+
+<script>
+    Vue.http.options.emulateJSON = true;
+    //login vuejs
+    var example2 = new Vue({
+        el: '#logindiv',
+        data: {
+            username1: '',
+            password1: ''
+        },
+        // define methods under the `methods` object
+        methods: {
+            greet: function (event) {
+                $.ajax({
+                    method: "post",
+                    type: "POST",
+                    url: "http://localhost/user/login",
+                    headers: {
+                        "Content-Type": "application/json"
+
+                    },
+                    data: JSON.stringify({
+                        username: this.username1,
+                        password: this.password1
+                    }),
+                    contentType: 'application/json',
+                    processData: false,
+
+                }).then(function (response) {
+                    console.log(response);
+                    if (response.msg == "success") {
+                        alert("login exitoso");
+                        location.reload();
+                    }
+                    else {
+                        alert("login fallido:" + JSON.stringify(response));
+                    }
+
+
+                }).catch(function (error) {
+                    alert("login fallido:" + JSON.stringify(error));
+                });
+            }
+        }
+    });
+
+    //crear post vuejs
+    var vuecreatepost = new Vue({
+        el: '#crearPostdiv',
+        data: {
+            userid: '',
+            titulo: '',
+            contenido: ''
+        },
+        // define methods under the `methods` object
+        methods: {
+            createPost: function (event) {
+                $.ajax({
+                    method: "post",
+                    type: "POST",
+                    url: "http://localhost/posts/create",
+                    headers: {
+                        "Content-Type": "application/json"
+
+                    },
+                    data: JSON.stringify({
+                        userid: this.userid,
+                        titulo: this.titulo,
+                        contenido: this.contenido
+                    }),
+                    contentType: 'application/json',
+                    processData: false,
+
+                }).then(function (response) {
+                    console.log(response);
+                    if (response.msg == "success") {
+                        alert("operacion exitosa");
+                        location.reload();
+                    }
+                    else {
+                        alert("error:" + JSON.stringify(response));
+                    }
+
+
+                }).catch(function (error) {
+                    alert("error:" + JSON.stringify(error));
+                });
+            }
+        }
+    });
+    //vue crear comentario vue js
+    var vuecreacomentario = new Vue({
+        el: '#crearComentariodiv',
+        data: {
+            useridComentario: '',
+            contenidoidComentario: '',
+            comentario: ''
+        },
+        // define methods under the `methods` object
+        methods: {
+            createComentario: function (event) {
+                $.ajax({
+                    method: "post",
+                    type: "POST",
+                    url: "http://localhost/comentario/create",
+                    headers: {
+                        "Content-Type": "application/json"
+
+                    },
+                    data: JSON.stringify({
+                        userid: this.useridComentario,
+                        contenidoid: this.contenidoidComentario,
+                        comentario: this.comentario
+                    }),
+                    contentType: 'application/json',
+                    processData: false,
+
+                }).then(function (response) {
+                    console.log(response);
+                    if (response.msg == "success") {
+                        alert("operacion exitosa");
+                        location.reload();
+                    }
+                    else {
+                        alert("error:" + JSON.stringify(response));
+                    }
+
+
+                }).catch(function (error) {
+                    alert("error:" + JSON.stringify(error));
+                });
+            }
+        }
+    });
+
+    //listar post vuejs
+    var vm1 = new Vue({
+        el: '#listDiv',
+        data: {
+            postsList: {}
+        },
+        created() {
+            this
+                .$http
+                .get('http://localhost/posts/getAll')
+                .then(function (response) {
+                    console.log("response get all posts");
+                    console.log(response)
+                    this.postsList = response.data
+                    console.log(this.postsList)
+                })
+        }
+    });
+
+    //list de usuarios
+    var vueUserList = new Vue({
+        el: '#userDiv',
+        data: {
+            userList: {}
+        },
+        created() {
+            this
+                .$http
+                .get('http://localhost/user/getAll')
+                .then(function (response) {
+                    console.log("response get all users");
+                    console.log(response)
+                    this.userList = response.data
+                    console.log(this.userList)
+                })
+        }
+    });
+
+    ///list de comentarios
+    var vueUserList = new Vue({
+        el: '#listaComentariosDiv',
+        data: {
+            comentarioList: {}
+        },
+        created() {
+            this
+                .$http
+                .get('http://localhost/comentario/getAll')
+                .then(function (response) {
+                    console.log("response get all comentarios");
+                    console.log(response)
+                    this.comentarioList = response.data
+                    console.log(this.userList)
+                })
+        }
+    });
+
+
+
+
+
+</script>
+
+</html>
