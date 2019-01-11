@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    
+
     <script>
         var postidinf = "<%= idpost %>";
         console.log("post id info:");
@@ -40,7 +40,23 @@
 
                 </div>
             </div>
-        </div>
+            <h3>Comentarios</h3>
+            <hr>
+
+            <div id="comentarioListDiv" class="row">
+
+                <div v-for="comentario in comentarioList" class="collection">
+
+
+                    <a href="#!" class="collection-item"><span class="new badge">Creado:&nbsp;{{ post.fechaCreacion }}</span>{{
+                        comentario.comentario }}</a>
+
+
+
+                </div>
+
+
+            </div>
 
         </div>
     </section>
@@ -67,6 +83,24 @@
                     console.log(response)
                     this.postsList = response.data
                     console.log(this.postsList)
+                })
+        }
+    });
+    //listar comentarios del post vuejs
+    var vm1 = new Vue({
+        el: '#comentarioListDiv',
+        data: {
+            comentarioList: {}
+        },
+        created() {
+            this
+                .$http
+                .get("http://" + mainUrl + "/comentario/getById/" + postidinf)
+                .then(function (response) {
+                    console.log("response get all posts");
+                    console.log(response)
+                    this.comentarioList = response.data
+                    console.log(this.comentarioList)
                 })
         }
     });
