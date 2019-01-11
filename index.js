@@ -299,7 +299,7 @@ app.get('/comentario/getById/:id', (req, res) => {
   }).catch(err => res.status(404).json({ code: 404, msg: e }));
 
 });
-app.get('/comentario/getByPost/:id', (req, res) => {
+app.get('/comentario/getByPost/:contenidoid', (req, res) => {
   // Enable cors
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
