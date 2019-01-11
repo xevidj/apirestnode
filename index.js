@@ -50,7 +50,7 @@ app.get("/principal_admin", (req, res) => {
   res.render("principal_admin")
 });
 app.get("/post_info_user/:idpost", (req, res) => {
-  res.render("post_info_user", req.params.idpost)
+  res.render("post_info_user", {idpost: req.params.idpost})
 });
 app.get("/post_info_admin/:idpost", (req, res) => {
   console.log(req.params.idpost)
