@@ -7,10 +7,9 @@
     <script src="https://cdn.jsdelivr.net/vue.resource/1.2.0/vue-resource.min.js"></script>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-   
+
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
     <script src="util.js"></script>
 </head>
 
@@ -45,7 +44,7 @@
 
 
         </div>
-
+    </section>
 
         <div id="comentarioListDiv" class="row">
             <h3>Comentarios</h3>
@@ -62,13 +61,13 @@
 
 
         </div>
-    </section>
+    
     <!--crear Comentarios-->
     <section id="crearComentario">
         <h1>Agregar Comentario</h1>
         <hr>
         <div id="crearComentariodiv" class="container">
-            
+
             <textarea rows="10" cols="50" v-model="comentario" placeholder="comentario">
                             </textarea>
             <button v-on:click="createComentario">CREAR</button>
@@ -139,7 +138,7 @@
 
                     },
                     data: JSON.stringify({
-                        userid:  getCookie("userid"),
+                        userid: getCookie("userid"),
                         contenidoid: postidinf,
                         comentario: this.comentario
                     }),

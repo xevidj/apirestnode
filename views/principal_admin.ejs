@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="util.js"></script>
 
 </head>
 
@@ -61,77 +60,77 @@
 
 
     <br><br><br>
+    <script>
+        mainUrl = "104.248.237.254:8082";
+        Vue.http.options.emulateJSON = true;
+        //listar post vuejs
+        var vm1 = new Vue({
+            el: '#listDiv',
+            data: {
+                postsList: {}
+            },
+            created() {
+                this
+                    .$http
+                    .get("http://" + mainUrl + "/posts/getAll")
+                    .then(function (response) {
+                        console.log("response get all posts");
+                        console.log(response)
+                        this.postsList = response.data
+                        console.log(this.postsList)
+                    })
+            }
+        });
+        //crear post vuejs
+        var vuecreatepost = new Vue({
+            el: '#crearPostdiv',
+            data: {
+                userid: '',
+                titulo: '',
+                contenido: ''
+            },
+            // define methods under the `methods` object
+            methods: {
+                createPost: function (event) {
+                    $.ajax({
+                        method: "post",
+                        type: "POST",
+                        url: "http://" + mainUrl + "/posts/create",
+                        headers: {
+                            "Content-Type": "application/json"
+
+                        },
+                        data: JSON.stringify({
+                            userid: getCookie("userid"),
+                            titulo: this.titulo,
+                            contenido: this.contenido
+                        }),
+                        contentType: 'application/json',
+                        processData: false,
+
+                    }).then(function (response) {
+                        console.log(response);
+                        if (response.msg == "success") {
+                            alert("Operacion exitosa");
+                            location.reload();
+                        }
+                        else {
+                            alert("error:" + JSON.stringify(response));
+                        }
+
+
+                    }).catch(function (error) {
+                        alert("error:" + JSON.stringify(error));
+                    });
+                }
+            }
+        });
+
+
+    </script>
 
 
 </body>
 
-<script>
-    mainUrl = "104.248.237.254:8082";
-    Vue.http.options.emulateJSON = true;
-    //listar post vuejs
-    var vm1 = new Vue({
-        el: '#listDiv',
-        data: {
-            postsList: {}
-        },
-        created() {
-            this
-                .$http
-                .get("http://" + mainUrl + "/posts/getAll")
-                .then(function (response) {
-                    console.log("response get all posts");
-                    console.log(response)
-                    this.postsList = response.data
-                    console.log(this.postsList)
-                })
-        }
-    });
-    //crear post vuejs
-    var vuecreatepost = new Vue({
-        el: '#crearPostdiv',
-        data: {
-            userid: '',
-            titulo: '',
-            contenido: ''
-        },
-        // define methods under the `methods` object
-        methods: {
-            createPost: function (event) {
-                $.ajax({
-                    method: "post",
-                    type: "POST",
-                    url: "http://" + mainUrl + "/posts/create",
-                    headers: {
-                        "Content-Type": "application/json"
-
-                    },
-                    data: JSON.stringify({
-                        userid: getCookie("userid"),
-                        titulo: this.titulo,
-                        contenido: this.contenido
-                    }),
-                    contentType: 'application/json',
-                    processData: false,
-
-                }).then(function (response) {
-                    console.log(response);
-                    if (response.msg == "success") {
-                        alert("Operacion exitosa");
-                        location.reload();
-                    }
-                    else {
-                        alert("error:" + JSON.stringify(response));
-                    }
-
-
-                }).catch(function (error) {
-                    alert("error:" + JSON.stringify(error));
-                });
-            }
-        }
-    });
-
-
-</script>
 
 </html>
