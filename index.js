@@ -160,7 +160,8 @@ app.get('/posts/getAll', (req, res) => {
     res.send(posts);
   });
 
-});//obtener por id
+});
+//obtener por id
 app.get('/posts/getById/:id', (req, res) => {
   // Enable cors
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -187,7 +188,9 @@ app.post('/posts/create', (req, res) => {
   const newObject = new Contenido({
     userid: req.body.userid,
     titulo: req.body.titulo,
-    contenido: req.body.contenido
+    contenido: req.body.contenido,
+    imgUrl: req.body.imgUrl
+
   });
   console.log("Saving post");
   console.log(newObject);

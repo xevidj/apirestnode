@@ -19,6 +19,10 @@ const ContenidoSchema = new Schema({
   fechaCreacion: {
     type: Date,
     default: Date.now
+  },
+  imgUrl: {
+    type: String,
+    default: "default"
   }
 });
 
