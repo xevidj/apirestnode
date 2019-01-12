@@ -54,11 +54,13 @@
                                 mas</i></span>
                         <p>Creado:&nbsp;{{ post.fechaCreacion }}</p>
                         <p>(id: {{ post._id}})</p>
-                        <button v-on:click="deletePost(post._id)">Eliminar</button>
-
+                        <div v-if="tipouser === 'ADMIN'">
+                            <button v-on:click="deletePost(post._id)">Eliminar</button>
+                        </div>
                     </div>
                     <div class="card-reveal">
-                        <a class="btn-floating btn-large waves-effect waves-light red"  :href="'post_info_user/' + post._id">Leer Todo</a>
+                        <a class="btn-floating btn-large waves-effect waves-light red" :href="'post_info_user/' + post._id">Leer
+                            Todo</a>
                         <span class="card-title grey-text text-darken-4">{{ post.titulo }}<i class="material-icons right">close</i></span>
                         <p>
                             <div v-html="post.contenido"></div>
@@ -81,7 +83,8 @@
         var vm1 = new Vue({
             el: '#listDiv',
             data: {
-                postsList: {}
+                postsList: {},
+                tipouser: getCookie("tipo")
             },
             created() {
                 this
