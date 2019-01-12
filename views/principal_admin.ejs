@@ -30,8 +30,10 @@
         <hr>
         <div id="crearPostdiv" class="container">
             <input v-model="titulo" placeholder="Titulo">
+            <br>
             <textarea rows="20" cols="50" v-model="contenido" placeholder="Contenido">
                 </textarea>
+            <br><br>
             <textarea rows="10" cols="50" v-model="imgUrl" placeholder="Url imagen">
                     </textarea>
             <button v-on:click="createPost">CREAR</button>
