@@ -31,7 +31,6 @@ mongoose
 /*
 * Definition of MongoDB models
 */
-const Item = require('./models/Item');
 const Contenido = require('./models/Contenido');
 const Comentario = require('./models/Comentario');
 const User = require('./models/User');
@@ -66,67 +65,11 @@ app.get('/hello', (req, res) => res.send('Hello World with Express'));
 
 
 
-app.get('/getAllItems', (req, res) => {
-
-  Item.find({}).then(function (items) {
-    res.send(users);
-  });
-
-});
-
-/*
-* Item Services
-*/
-app.post('/item/add', (req, res) => {
-  // Enable cors
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
-  res.setHeader('Access-Control-Allow-Credentials', true); // If needed
-  const newItem = new Item({
-    name: req.body.name
-  });
-
-  newItem.save().then(item => res.redirect('/'));
-});
-app.get('/', (req, res) => {
-  // Enable cors
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
-  res.setHeader('Access-Control-Allow-Credentials', true); // If needed
-  Item.find()
-    .then(items => res.render('index', { items }))
-    .catch(err => res.status(404).json({ msg: 'No items found' }));
-});
-app.get('/getAll', (req, res) => {
-  // Enable cors
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
-  res.setHeader('Access-Control-Allow-Credentials', true); // If needed
-  Item.find({}).then(function (items) {
-    res.send(users);
-  });
-
-});
 
 
-app.post('/item/create', (req, res) => {
-  // Enable cors
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
-  res.setHeader('Access-Control-Allow-Credentials', true); // If needed
-  console.log(req.body);
-  const newItem = new Item({
-    name: req.body.name
-  });
 
-  newItem.save()
-    .then(item => res.status(200).json({ msg: 'success' }))
-    .catch(err => res.status(404).json({ msg: err }));
-});
+
+
 /*
 * User Services
 */
