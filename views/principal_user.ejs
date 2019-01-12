@@ -11,22 +11,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="util.js"></script>
     <script>checkSession("INVITADO");
-       </script>
+    </script>
 
 </head>
 
 <body>
-        <button onclick="goBack()">Regresar</button>
-        <button onclick="logoutCookie()" style="float: right">Logout</button>
-    
-        <div class="card-panel" style="float: right">
-            <span class="blue-text text-darken-2" id="usernameLabel">This is a card panel with dark blue text</span>
-        </div>
-    
+    <button onclick="goBack()">Regresar</button>
+    <button onclick="logoutCookie()" style="float: right">Logout</button>
 
     <div class="card-panel" style="float: right">
-            <span class="blue-text text-darken-2" id="usernameLabel">This is a card panel with dark blue text</span>
-        </div>
+        <span class="blue-text text-darken-2" id="usernameLabel">This is a card panel with dark blue text</span>
+    </div>
+
+
+    <div class="card-panel" style="float: right">
+        <span class="blue-text text-darken-2" id="usernameLabel">This is a card panel with dark blue text</span>
+    </div>
     <!--listar post-->
     <section id="listaPost">
         <h1>Lista de Posts</h1>
@@ -47,11 +47,12 @@
                         <p>(id: {{ post._id}})</p>
                     </div>
                     <div class="card-reveal">
+                        <a :href="'post_info_user/' + post._id">Leer Todo</a>
                         <span class="card-title grey-text text-darken-4">{{ post.titulo }}<i class="material-icons right">close</i></span>
                         <p>
                             <div v-html="post.contenido"></div>
                         </p>
-                        <a :href="'post_info_user/' + post._id">Leer</a>
+
 
                     </div>
                 </div>

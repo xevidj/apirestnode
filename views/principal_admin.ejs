@@ -58,11 +58,12 @@
 
                     </div>
                     <div class="card-reveal">
+                        <a class="btn-floating btn-large waves-effect waves-light red"  :href="'post_info_user/' + post._id">Leer Todo</a>
                         <span class="card-title grey-text text-darken-4">{{ post.titulo }}<i class="material-icons right">close</i></span>
                         <p>
                             <div v-html="post.contenido"></div>
                         </p>
-                        <a :href="'post_info_user/' + post._id">Leer</a>
+
 
                     </div>
                 </div>
