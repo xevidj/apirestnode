@@ -32,6 +32,8 @@
             <input v-model="titulo" placeholder="Titulo">
             <textarea rows="20" cols="50" v-model="contenido" placeholder="Contenido">
                 </textarea>
+            <textarea rows="10" cols="50" v-model="imgUrl" placeholder="Url imagen">
+                    </textarea>
             <button v-on:click="createPost">CREAR</button>
         </div>
 
@@ -47,7 +49,7 @@
 
                 <div class="card">
                     <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRhv2_AJmH-7OPFYhiqCxprncJZbGF5uzAR_PRGbfFAKpB4SKgsw">
+                        <img class="activator" src="post.imgUrl">
                     </div>
                     <div class="card-content">
                         <span class="card-title activator grey-text text-darken-4">{{ post.titulo }}<i class="material-icons right">Leer

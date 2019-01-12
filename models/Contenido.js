@@ -22,7 +22,7 @@ const ContenidoSchema = new Schema({
   },
   imgUrl: {
     type: String,
-    default: "default"
+    default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTRhv2_AJmH-7OPFYhiqCxprncJZbGF5uzAR_PRGbfFAKpB4SKgsw"
   }
 });
 
