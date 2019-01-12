@@ -137,7 +137,8 @@
             data: {
                 userid: '',
                 titulo: '',
-                contenido: ''
+                contenido: '',
+                imgUrl: ''
             },
             // define methods under the `methods` object
             methods: {
@@ -153,7 +154,8 @@
                         data: JSON.stringify({
                             userid: getCookie("userid"),
                             titulo: this.titulo,
-                            contenido: this.contenido
+                            contenido: this.contenido,
+                            imgUrl: this.imgUrl
                         }),
                         contentType: 'application/json',
                         processData: false,
