@@ -72,5 +72,6 @@ deleteCookie("username");
 
 function cargarDatosUsuario(id){
 
-document.getElementById(id).innerHTML=getCookie("username");
+document.getElementById(id).innerHTML="Usuario: "+getCookie("username") +"/ Tipo:"+ getCookie("tipo");
+
 }
