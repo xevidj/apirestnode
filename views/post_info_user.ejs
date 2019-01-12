@@ -67,7 +67,7 @@
                 <p class="collection-item">
                     <span class=" badge">
                         Creado:&nbsp;{{comentario.fechaCreacion}}
-                        <div v-if="tipousuario === 'ADMIN'">
+                        <div v-if="tipousuario == 'ADMIN'">
 
                             <button v-on:click="deleteComentario(comentario._id)">Eliminar</button>
                         </div>
@@ -128,6 +128,7 @@
             tipousuario: ""
         },
         created() {
+            tipousuario= getCookie("tipo");
             this
                 .$http
                 .get("http://" + mainUrl + "/comentario/getByPost/" + postidinf)
