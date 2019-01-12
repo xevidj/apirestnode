@@ -67,7 +67,7 @@
                 <p class="collection-item">
                     <span class=" badge">
                         Creado:&nbsp;{{comentario.fechaCreacion}}
-                        <div v-if="tipousuario == 'ADMIN'">
+                        <div v-if="isAdmin">
 
                             <button v-on:click="deleteComentario(comentario._id)">Eliminar</button>
                         </div>
@@ -125,10 +125,19 @@
         el: '#comentarioListDiv',
         data: {
             comentarioList: {},
-            tipousuario: ""
+            isAdmin: false
         },
         created() {
-            tipousuario= getCookie("tipo");
+            tipousuario = getCookie("tipo");
+            if (tipousuario == "ADMIN") {
+                isAdmin = true;
+                console.log("es admin user")
+            }
+
+            else
+                console.log("usuario invitado")
+
+
             this
                 .$http
                 .get("http://" + mainUrl + "/comentario/getByPost/" + postidinf)
