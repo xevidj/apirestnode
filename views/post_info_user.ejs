@@ -22,7 +22,7 @@
     <button onclick="logoutCookie()" style="float: right">Logout</button>
 
     <div class="card-panel" style="float: right">
-        <span class="blue-text text-darken-2" id="usernameLabel">This is a card panel with dark blue text</span>
+        <span class="blue-text text-darken-2" id="usernameLabel"></span>
     </div>
 
     <script>
@@ -67,7 +67,8 @@
                 <p class="collection-item">
                     <span class=" badge">
                         Creado:&nbsp;{{comentario.fechaCreacion}}
-                        <div v-if="getCookie('tipo') == 'ADMIN' ">
+                        <div v-if="tipousuario === 'ADMIN'">
+
                             <button v-on:click="deleteComentario(comentario._id)">Eliminar</button>
                         </div>
                     </span>
@@ -123,7 +124,8 @@
     var vm2 = new Vue({
         el: '#comentarioListDiv',
         data: {
-            comentarioList: {}
+            comentarioList: {},
+            tipousuario: ""
         },
         created() {
             this
