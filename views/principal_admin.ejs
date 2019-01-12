@@ -54,6 +54,8 @@
                                 mas</i></span>
                         <p>Creado:&nbsp;{{ post.fechaCreacion }}</p>
                         <p>(id: {{ post._id}})</p>
+                        <button v-on:click="deletePost(post._id)">Eliminar</button>
+
                     </div>
                     <div class="card-reveal">
                         <span class="card-title grey-text text-darken-4">{{ post.titulo }}<i class="material-icons right">close</i></span>
@@ -90,6 +92,37 @@
                         this.postsList = response.data
                         console.log(this.postsList)
                     })
+            },
+            methods: {
+
+                deletePost: function (id) {
+                    $.ajax({
+                        method: "delete",
+                        type: "DELETE",
+                        url: "http://" + mainUrl + "/posts/" + id,
+                        headers: {
+                            "Content-Type": "application/json"
+
+                        },
+                        data: {},
+                        contentType: 'application/json',
+                        processData: false,
+
+                    }).then(function (response) {
+                        console.log(response);
+                        if (response.msg == "success") {
+                            alert("Operacion exitosa");
+                            location.reload();
+                        }
+                        else {
+                            alert("error:" + JSON.stringify(response));
+                        }
+
+
+                    }).catch(function (error) {
+                        alert("error:" + JSON.stringify(error));
+                    });
+                }
             }
         });
         //crear post vuejs

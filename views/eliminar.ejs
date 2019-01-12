@@ -1,0 +1,31 @@
+ <script src="util.js"></script>
+ 
+ <script>
+    try {
+    console.log(getCookie("tipo"));
+        if (getCookie("tipo") != "ADMIN" && getCookie("tipo") != "INVITADO") {
+
+            var re = /^https?:\/\/[^/]+/i;
+           window.location.href = re.exec(window.location.href)[0] + "/login";
+             window.location.href =window.location.href +"login";
+            console.log("login");
+        }
+        else {
+            if (getCookie("tipo") == "ADMIN") {
+               window.location.href = "/principal_admin";
+               console.log("principal_admin");
+            }
+            else {
+               window.location.href = "/principal_user";
+                console.log("principal_user");
+            }
+
+        }
+    }
+    catch (err) {
+        var re = /^https?:\/\/[^/]+/i;
+        window.location.href = re.exec(window.location.href)[0] + "/login";
+        console.log("login error:");
+        console.log(err);
+    }
+</script>
