@@ -14,7 +14,12 @@
 </head>
 
 <body>
+    
     <button onclick="goBack()">Regresar</button>
+    
+
+    <button onclick="logoutCookie()" style="float: right">Logout</button>
+    <p id="usernameLabel"></p>
 
     <script>
         var postidinf = "<%= idpost %>";
@@ -109,7 +114,7 @@
     });
 
 
-
+    cargarDatosUsuario();
 </script>
 
 </html>
